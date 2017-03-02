@@ -37,7 +37,7 @@ RUN curl -sSL https://bootstrap.pypa.io/get-pip.py >> get-pip.py && \
       virtualenv
 
 # Download SHIVA
-RUN git clone -b daemonize-lamson https://github.com/marclaliberte/shiva.git && \
+RUN git clone https://github.com/marclaliberte/shiva.git && \
   mkdir /opt/shiva
 
 # Setup SHIVA helpers
