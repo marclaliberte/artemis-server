@@ -1,0 +1,13 @@
+#!/bin/bash
+
+RPATH='/opt/shiva/shivaReceiver/receiver/logs/'
+APATH='/opt/shiva/shivaAnalyzer/analyzer/logs/'
+
+> $RPATH'lamson.err'
+> $RPATH'lamson.log'
+> $RPATH'lamson.out'
+> $RPATH'logger.log'
+> $APATH'lamson.err'
+> $APATH'lamson.log'
+> $APATH'lamson.out'
+> $APATH'logger.log'

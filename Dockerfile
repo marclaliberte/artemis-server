@@ -122,5 +122,8 @@ RUN sed -i -e '32a\daemon_smtp_ports=2500' /etc/exim4/exim4.conf.template && \
     sed -i s/dc_eximconfig_configtype=\'local\'/dc_eximconfig_configtype=\'internet\'/ /etc/exim4/update-exim4.conf.conf && \
     service exim4 restart
 
+# Copy log bandaid fix
+COPY clearlogs /etc/cron.daily/
+
 # Start MySQL with docker
 ENTRYPOINT service mysql restart && bash
