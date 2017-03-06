@@ -48,8 +48,18 @@ RUN cp /tmp/shiva/helpers/dbcreate.py /opt/shiva/ && \
     cp /tmp/shiva/helpers/setup_exim4.sh /opt/shiva/
 
 # Setup SHVIA config
-RUN sed -i 's/localdb : False/localdb : True/g' /opt/shiva/shiva.conf && \
-    sed -i 's/password : password/password : MySQLPassword/g' /opt/shiva/shiva.conf
+RUN sed -i "s/password : password/password : MySQLPassword/g" /opt/shiva/shiva.conf && \
+    sed -i "s/queuepath : somepath/queuepath : \/opt\/shiva\/queue\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/undeliverable_path : somepath/undeliverable_path : \/opt\/shiva\/distorted\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/rawspampath : somepath/rawspampath : \/opt\/shiva\/rawspams\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/hpfeedspam : somepath/hpfeedspam : \/opt\/shiva\/rawspams\/hpfeeds\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/attachpath : somepath/attachpath : \/opt\/shiva\/attachments\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/inlinepath : somepath/inlinepath : \/opt\/shiva\/attachments\/inlines\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/hpfeedattach : somepath/hpfeedattach : \/opt\/shiva\/attachments\/hpfeedattach\//g" /opt/shiva/shiva.conf && \
+    sed -i "s/listenhost : 127.0.0.1/listenhost : 0.0.0.0/g" /opt/shiva/shiva.conf && \
+    sed -i "s/listenport : 2525/listenport : 25/g" /opt/shiva/shiva.conf && \
+    sed -i "s/sendparsed: False/sendparsed: True/g" /opt/shiva/shiva.conf
+
 
 # Setup SHIVA receiver
 WORKDIR /opt/shiva
@@ -101,17 +111,6 @@ RUN mkdir /opt/shiva/queue && \
   mkdir /opt/shiva/attachments/hpfeedattach && \
   mkdir /opt/shiva/rawspams && \
   mkdir /opt/shiva/rawspams/hpfeedspam
-
-# Finalize SHIVA config
-RUN sed -i "s/queuepath : somepath/queuepath : \/opt\/shiva\/queue\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/undeliverable_path : somepath/undeliverable_path : \/opt\/shiva\/distorted\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/rawspampath : somepath/rawspampath : \/opt\/shiva\/rawspams\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/hpfeedspam : somepath/hpfeedspam : \/opt\/shiva\/rawspams\/hpfeeds\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/attachpath : somepath/attachpath : \/opt\/shiva\/attachments\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/inlinepath : somepath/inlinepath : \/opt\/shiva\/attachments\/inlines\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/hpfeedattach : somepath/hpfeedattach : \/opt\/shiva\/attachments\/hpfeedattach\//g" /opt/shiva/shiva.conf && \
-    sed -i "s/listenhost : 127.0.0.1/listenhost : 0.0.0.0/g" /opt/shiva/shiva.conf && \
-    sed -i "s/listenport : 2525/listenport : 25/g" /opt/shiva/shiva.conf
 
 # Setup database
 WORKDIR /opt/shiva
