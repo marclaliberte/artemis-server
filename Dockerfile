@@ -125,4 +125,4 @@ RUN sed -i -e '32a\daemon_smtp_ports=2500' /etc/exim4/exim4.conf.template && \
 COPY clearlogs /etc/cron.daily/
 
 # Start MySQL with docker
-ENTRYPOINT service mysql restart && service exim4 restart && bash
+ENTRYPOINT service mysql restart && service exim4 restart && cron && bash
